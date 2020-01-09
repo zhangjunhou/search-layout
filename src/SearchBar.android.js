@@ -28,7 +28,7 @@ export default class SearchBar extends React.PureComponent {
           ref={view => {
             this._textInput = view;
           }}
-          placeholder="Search"
+          placeholder={this.props.placeholder}
           placeholderTextColor={this.props.placeholderTextColor || '#ccc'}
           value={this.state.text}
           autoCapitalize="none"
@@ -38,21 +38,22 @@ export default class SearchBar extends React.PureComponent {
           onSubmitEditing={this._handleSubmit}
           onChangeText={this._handleChangeText}
           style={[styles.searchInput, searchInputStyle]}
+          returnKeyType={'search'}
         />
         <View
           style={{ width: 50, alignItems: 'center', justifyContent: 'center' }}>
           {this.state.text
             ? <Touchable
-                onPress={this._handleClear}
-                hitSlop={{top: 15, left: 10, right: 15, bottom: 15}}
-                style={{ padding: 5 }}
-                background={Touchable.Ripple(this.props.tintColor, true)}>
-                <Ionicons
-                  name="md-close"
-                  size={25}
-                  color={this.props.tintColor}
-                />
-              </Touchable>
+              onPress={this._handleClear}
+              hitSlop={{ top: 15, left: 10, right: 15, bottom: 15 }}
+              style={{ padding: 5 }}
+              background={Touchable.Ripple(this.props.tintColor, true)}>
+              <Ionicons
+                name="md-close"
+                size={25}
+                color={this.props.tintColor}
+              />
+            </Touchable>
             : null}
         </View>
       </View>
@@ -61,6 +62,7 @@ export default class SearchBar extends React.PureComponent {
 
   _handleClear = () => {
     this.setState({ text: '' });
+    this.props.onChangeQuery && this.props.onChangeQuery('');
   };
   _handleChangeText = text => {
     this.setState({ text });

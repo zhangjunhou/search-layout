@@ -48,6 +48,7 @@ class PlaceholderButtonSearchBar extends React.PureComponent {
               placeholderTextColor={this.props.placeholderTextColor}
               selectionColor={this.props.selectionColor}
               style={styles.searchInput}
+              returnKeyType={'search'}
             />
 
             <SearchIcon />
